@@ -4,12 +4,10 @@ const Schema = mongoose.Schema
 const schema = Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  creditCardNumber: { type: String },
-  creditCardCode: { type: String },
-  creditCardBrand: { type: String },
+  type: { type: String },
   createdAt: { type: Date, default: Date.now }
 })
 
-const User = mongoose.model('User', schema)
+const AdminUser = mongoose.model('AdminUser', schema)
 
-export default User
+export default AdminUser
