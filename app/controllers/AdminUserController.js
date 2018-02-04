@@ -38,8 +38,6 @@ class AdminUserController {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
   }
-
-
 }
 
 
