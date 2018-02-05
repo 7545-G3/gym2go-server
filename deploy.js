@@ -1,3 +1,5 @@
+require('shelljs/global')
+
 const tempBranchName = 'deploy/' + Math.random().toString()
 exec('git checkout -b ' + tempBranchName)
 exec('git add -f build/')
