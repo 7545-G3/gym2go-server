@@ -7,13 +7,13 @@ let connectToDatabase = () => {
   mongoose.set('debug', process.env.MONGOOSE_DEBUG)
   mongoose.Promise = Promise
 
-  mongoose.connect(process.env.MONGO_URL || process.env.MONGOLAB_URI)
+  mongoose.connect(process.env.MONGO_URL || process.env.MONGODB_URI)
   let db = mongoose.connection
   db.on('error', err => {
     def.reject(err)
   })
   db.once('open', () => {
-    Logger.info('Connected to database:', process.env.MONGO_URL || process.env.MONGOLAB_URI)
+    Logger.info('Connected to database:', process.env.MONGO_URL || process.env.MONGODB_URI)
     def.resolve()
   })
   return def.promise
