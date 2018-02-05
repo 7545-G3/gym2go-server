@@ -10,7 +10,7 @@
     "lint": "eslint",
     "clean": "rm -rf build && mkdir build",
     "build-server": "babel -d ./build ./src",
-    "production": "npm run clean && npm run build-server && npm run start-production",
+    "build": "npm run clean && npm run build-server",
     "start-production": "node ./build/server.js"
   },
   "keywords": [],
