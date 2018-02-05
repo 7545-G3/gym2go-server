@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node server.js",
-    "start-nodemon": "nodemon --exec babel-node -- server",
+    "start": "babel-node src/server.js",
+    "start-nodemon": "nodemon --exec babel-node -- src/server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean": "rm -rf build && mkdir build",
+    "build-server": "babel -d ./build ./src",
+    "production": "npm run clean && npm run build-server && npm run start-production",
+    "start-production": "node ./build/server.js"
   },
   "keywords": [],
   "author": "",
