@@ -11,7 +11,8 @@
     "clean": "rm -rf build && mkdir build",
     "build-server": "babel -d ./build ./src",
     "build": "npm run clean && npm run build-server",
-    "start-production": "node ./build/server.js"
+    "start-production": "node ./build/server.js",
+    "deploy": "node deploy.js"
   },
   "keywords": [],
   "author": "",
