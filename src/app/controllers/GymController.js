@@ -25,7 +25,6 @@ class GymController {
       })
   }
 
-
   static getById(req, res) {
     Gym.findOne({_id: req.params.id})
       .then((gym) => {
@@ -46,6 +45,5 @@ class GymController {
       })
   }
 }
-
 
 export default GymController

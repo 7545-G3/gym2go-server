@@ -40,5 +40,4 @@ class AdminUserController {
   }
 }
 
-
 export default AdminUserController
