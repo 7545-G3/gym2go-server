@@ -1,13 +1,12 @@
 import mongoose from 'mongoose'
-import { Buffer } from 'buffer'
 
-const Schema = mongoose.Schema
+const { Schema } = mongoose
 
 const schema = Schema({
   name: { type: String },
   description: { type: String },
   price: { type: Number },
-  image: { type: Buffer },
+  image: { type: String },
   type: { type: String }
 })
 

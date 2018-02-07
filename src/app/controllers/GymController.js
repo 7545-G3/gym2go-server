@@ -7,7 +7,7 @@ class GymController {
 
   static post(req, res) {
     Gym.create(req.body)
-      .then((gym) => {
+      .then(gym => {
         res.json(gym)
       })
       .catch(ValidationError, err => {
@@ -17,7 +17,7 @@ class GymController {
 
   static put(req, res) {
     Gym.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
-      .then((gym) => {
+      .then(gym => {
         res.json(gym)
       })
       .catch(ValidationError, err => {
@@ -26,8 +26,9 @@ class GymController {
   }
 
   static getById(req, res) {
-    Gym.findOne({_id: req.params.id})
-      .then((gym) => {
+    Gym.findById(req.params.id)
+      .populate('ownerUser products trainers activities')
+      .then(gym => {
         res.json(gym)
       })
       .catch(ValidationError, err => {
@@ -37,8 +38,9 @@ class GymController {
 
   static get(req, res) {
     Gym.find()
-      .then((gym) => {
-        res.json(gym)
+      .populate('ownerUser products trainers activities')
+      .then(gyms => {
+        res.json(gyms)
       })
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))

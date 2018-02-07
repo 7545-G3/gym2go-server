@@ -1,13 +1,12 @@
 import mongoose from 'mongoose'
-import { Buffer } from 'buffer'
 
-const Schema = mongoose.Schema
+const { Schema } = mongoose
 
 const schema = Schema({
   email: { type: String },
   age: { type: String },
   specialty: { type: String },
-  image: { type: Buffer }
+  image: { type: String }
 })
 
 const Trainer = mongoose.model('Trainer', schema)

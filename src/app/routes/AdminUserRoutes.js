@@ -7,6 +7,7 @@ class AdminUserRouter {
     app.post(baseUrl, AdminUserController.post)
     app.get(baseUrl, AdminUserController.get)
     app.post(`${baseUrl}/login`, AdminUserController.login)
+    app.get(`${baseUrl}/:id/gyms`, AdminUserController.getGym)
   }
 }
 

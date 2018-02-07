@@ -1,4 +1,5 @@
 import AdminUser from '../models/AdminUser'
+import Gym from '../models/Gym'
 let ValidationError = require('mongoose').Error.ValidationError
 import { UserNotFoundException, UserInvalidCredentialsException } from '../utils/error/Exceptions'
 let ErrorHelper = require('../utils/error/ErrorHelper')
@@ -35,6 +36,17 @@ class AdminUserController {
     AdminUser.find()
       .then((user) => {
         res.json(user)
+      })
+      .catch(ValidationError, err => {
+        return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+  }
+
+  static getGym(req, res) {
+    Gym.findOne({ownerUser: req.params.id})
+      .populate('ownerUser products trainers activities')
+      .then(gym => {
+        res.json(gym)
       })
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
