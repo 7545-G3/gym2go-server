@@ -17,8 +17,10 @@ class AdminUserController {
   }
 
   static login(req, res) {
-    AdminUser.findOne(req.body.username)
+    const { username, password } = req.body
+    AdminUser.findOne({ username, password })
       .then(user => {
+        console.log(user)
         return res.json(user)
       })
       .catch(UserNotFoundException, UserInvalidCredentialsException, () => {
