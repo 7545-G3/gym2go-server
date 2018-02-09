@@ -11,6 +11,9 @@ class GymRouter {
     app.put(`${baseUrl}/:id/trainers`, GymController.addTrainer)
     app.put(`${baseUrl}/:id/products`, GymController.addProduct)
     app.put(`${baseUrl}/:id/activities`, GymController.addActivity)
+    app.delete(`${baseUrl}/:id/trainers/:trainerId`, GymController.removeTrainer)
+    app.delete(`${baseUrl}/:id/products/:productId`, GymController.removeProduct)
+    app.delete(`${baseUrl}/:id/activities/:activityId`, GymController.removeActivity)
   }
 }
 

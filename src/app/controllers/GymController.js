@@ -2,6 +2,7 @@ import Gym from '../models/Gym'
 import Trainer from '../models/Trainer'
 import Product from '../models/Product'
 import Activity from '../models/Activity'
+import lodash from 'lodash'
 let ValidationError = require('mongoose').Error.ValidationError
 let ErrorHelper = require('../utils/error/ErrorHelper')
 let HttpStatus = require('http-status-codes')
@@ -76,6 +77,48 @@ class GymController {
       .then((activity) => {
         gymToUpdate.trainers.push(activity._id)
         return gymToUpdate.save()
+      })
+      .then(() => {
+        return res.json(HttpStatus.OK)
+      })
+      .catch(ValidationError, err => {
+        return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+  }
+
+  static removeTrainer(req, res) {
+    return Gym.findOne({_id: req.params.id})
+      .then(gym => {
+        gym.trainers = gym.trainers.filter(trainerId => trainerId.toString() !== req.params.trainerId)
+        return gym.save()
+      })
+      .then(() => {
+        return res.json(HttpStatus.OK)
+      })
+      .catch(ValidationError, err => {
+        return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+  }
+
+  static removeActivity(req, res) {
+    return Gym.findOne({_id: req.params.id})
+      .then(gym => {
+        gym.activities = gym.activities.filter(activityId => activityId.toString() !== req.params.activityId)
+        return gym.save()
+      })
+      .then(() => {
+        return res.json(HttpStatus.OK)
+      })
+      .catch(ValidationError, err => {
+        return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+  }
+
+  static removeProduct(req, res) {
+    return Gym.findOne({_id: req.params.id})
+      .then(gym => {
+        gym.products = gym.products.filter(productId => productId.toString() !== req.params.productId)
+        return gym.save()
       })
       .then(() => {
         return res.json(HttpStatus.OK)
