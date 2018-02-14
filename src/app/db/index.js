@@ -7,13 +7,14 @@ let connectToDatabase = () => {
   mongoose.set('debug', process.env.MONGOOSE_DEBUG)
   mongoose.Promise = Promise
 
-  mongoose.connect(process.env.MONGO_URL || process.env.MONGODB_URI)
+  const MONGO_URL = process.env.MONGO_URL || process.env.MONGODB_URI || 'mongodb://localhost:27017/gym2go'
+  mongoose.connect(MONGO_URL)
   let db = mongoose.connection
   db.on('error', err => {
     def.reject(err)
   })
   db.once('open', () => {
-    Logger.info('Connected to database:', process.env.MONGO_URL || process.env.MONGODB_URI)
+    Logger.info('Connected to database:', MONGO_URL)
     def.resolve()
   })
   return def.promise
