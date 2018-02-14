@@ -1,4 +1,5 @@
 import User from '../models/User'
+import SupplementPurchase from '../models/SupplementPurchase'
 let ValidationError = require('mongoose').Error.ValidationError
 import { UserNotFoundException, UserInvalidCredentialsException } from '../utils/error/Exceptions'
 let ErrorHelper = require('../utils/error/ErrorHelper')
@@ -18,9 +19,8 @@ class UserController {
 
   static login(req, res) {
     const { username, password } = req.body
-    User.findOne({ username, password })
+    User.findOne({ username, password }).deepPopulate('supplements.supplement')
       .then(user => {
-        console.log(user)
         return res.json(user)
       })
       .catch(UserNotFoundException, UserInvalidCredentialsException, () => {
@@ -35,6 +35,25 @@ class UserController {
     User.find()
       .then((user) => {
         res.json(user)
+      })
+      .catch(ValidationError, err => {
+        return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+  }
+
+  static purchaseSupplement(req, res) {
+    let userFound = null
+    User.findById(req.params.id)
+      .then(user => {
+        userFound = user
+        return SupplementPurchase.create(req.body)
+      })
+      .then(supplementPurchase => {
+        userFound.supplements = supplementPurchase
+        return userFound.save()
+      })
+      .then(() => {
+        return res.json(HttpStatus.OK)
       })
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))

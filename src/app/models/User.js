@@ -8,8 +8,11 @@ const schema = Schema({
   creditCardNumber: { type: String },
   creditCardCode: { type: String },
   creditCardBrand: { type: String },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  supplements: [{ type: Schema.Types.ObjectId, ref: 'SupplementPurchase' }]
 })
+
+schema.plugin(require('mongoose-deep-populate')(mongoose), {})
 
 const User = mongoose.model('User', schema)
 

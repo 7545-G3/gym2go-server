@@ -7,6 +7,7 @@ class UserRouter {
     app.post(baseUrl, UserController.post)
     app.get(baseUrl, UserController.get)
     app.post(`${baseUrl}/login`, UserController.login)
+    app.post(`${baseUrl}/:id/supplements`, UserController.purchaseSupplement)
   }
 }
 
