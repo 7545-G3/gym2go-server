@@ -5,8 +5,7 @@ const { Schema } = mongoose
 const schema = Schema({
   description: { type: String },
   price: { type: Number },
-  date: { type: String },
-  time: { type: String },
+  schedules: [{ type: String }],
   image: { type: String }
 })
 

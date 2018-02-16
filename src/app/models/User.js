@@ -9,7 +9,8 @@ const schema = Schema({
   creditCardCode: { type: String },
   creditCardBrand: { type: String },
   createdAt: { type: Date, default: Date.now },
-  supplements: [{ type: Schema.Types.ObjectId, ref: 'SupplementPurchase' }]
+  supplements: [{ type: Schema.Types.ObjectId, ref: 'SupplementPurchase' }],
+  gymPasses: [{ type: Schema.Types.ObjectId, ref: 'GymPass' }]
 })
 
 schema.plugin(require('mongoose-deep-populate')(mongoose), {})

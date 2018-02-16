@@ -8,6 +8,7 @@ class UserRouter {
     app.get(baseUrl, UserController.get)
     app.post(`${baseUrl}/login`, UserController.login)
     app.post(`${baseUrl}/:id/supplements`, UserController.purchaseSupplement)
+    app.post(`${baseUrl}/:id/gym-passes`, UserController.purchaseGymPass)
   }
 }
 

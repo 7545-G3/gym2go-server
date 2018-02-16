@@ -1,5 +1,6 @@
 import User from '../models/User'
 import SupplementPurchase from '../models/SupplementPurchase'
+import GymPass from '../models/GymPass'
 let ValidationError = require('mongoose').Error.ValidationError
 import { UserNotFoundException, UserInvalidCredentialsException } from '../utils/error/Exceptions'
 let ErrorHelper = require('../utils/error/ErrorHelper')
@@ -19,7 +20,8 @@ class UserController {
 
   static login(req, res) {
     const { username, password } = req.body
-    User.findOne({ username, password }).deepPopulate('supplements.supplement')
+    User.findOne({ username, password })
+      .deepPopulate('supplements.supplement gymPasses.clothes gymPasses.activity gymPasses.trainer')
       .then(user => {
         return res.json(user)
       })
@@ -49,7 +51,26 @@ class UserController {
         return SupplementPurchase.create(req.body)
       })
       .then(supplementPurchase => {
-        userFound.supplements = supplementPurchase
+        userFound.supplements.push(supplementPurchase._id)
+        return userFound.save()
+      })
+      .then(() => {
+        return res.json(HttpStatus.OK)
+      })
+      .catch(ValidationError, err => {
+        return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+  }
+
+  static purchaseGymPass(req, res) {
+    let userFound = null
+    User.findById(req.params.id)
+      .then(user => {
+        userFound = user
+        return GymPass.create(req.body)
+      })
+      .then(gymPass => {
+        userFound.gymPasses.push(gymPass._id)
         return userFound.save()
       })
       .then(() => {
