@@ -19,8 +19,8 @@ class UserController {
   }
 
   static login(req, res) {
-    const { username, password } = req.body
-    User.findOne({ username, password })
+    const { email, password } = req.body
+    User.findOne({ email, password })
       .deepPopulate('supplements.supplement gymPasses.clothes gymPasses.activity gymPasses.trainer')
       .then(user => {
         return res.json(user)

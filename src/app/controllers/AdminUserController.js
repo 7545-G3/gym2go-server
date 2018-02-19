@@ -18,8 +18,8 @@ class AdminUserController {
   }
 
   static login(req, res) {
-    const { username, password } = req.body
-    AdminUser.findOne({ username, password })
+    const { email, password } = req.body
+    AdminUser.findOne({ email, password })
       .then(user => {
         console.log(user)
         return res.json(user)
