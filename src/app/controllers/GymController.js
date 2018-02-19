@@ -75,7 +75,7 @@ class GymController {
         return Activity.create(req.body)
       })
       .then((activity) => {
-        gymToUpdate.trainers.push(activity._id)
+        gymToUpdate.activities.push(activity._id)
         return gymToUpdate.save()
       })
       .then(() => {
