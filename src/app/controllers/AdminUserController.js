@@ -43,7 +43,7 @@ class AdminUserController {
   }
 
   static getGym(req, res) {
-    Gym.findOne({ownerUser: req.params.id})
+    Gym.find({ownerUser: req.params.id})
       .populate('ownerUser products trainers activities')
       .then(gym => {
         res.json(gym)
