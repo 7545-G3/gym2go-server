@@ -1,5 +1,7 @@
 import AdminUser from '../models/AdminUser'
 import Gym from '../models/Gym'
+import GymPass from '../models/GymPass'
+import SupplementPurchase from '../models/SupplementPurchase'
 let ValidationError = require('mongoose').Error.ValidationError
 import { UserNotFoundException, UserInvalidCredentialsException } from '../utils/error/Exceptions'
 let ErrorHelper = require('../utils/error/ErrorHelper')
@@ -47,6 +49,32 @@ class AdminUserController {
       .populate('ownerUser products trainers activities')
       .then(gym => {
         res.json(gym)
+      })
+      .catch(ValidationError, err => {
+        return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+  }
+
+  static getGymPassesPurchased(req, res) {
+    return Gym.find({ownerUser: req.params.id}, '_id')
+      .then(gymIds => {
+        return GymPass.find({gym: {$in :gymIds}}).populate('trainer clothes')
+      })
+      .then(gyms => {
+        res.json(gyms)
+      })
+      .catch(ValidationError, err => {
+        return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+  }
+
+  static getSupplementsPurchased(req, res) {
+    return Gym.find({ownerUser: req.params.id}, '_id')
+      .then(gymIds => {
+        return SupplementPurchase.find({gym: {$in :gymIds}}).populate('supplement')
+      })
+      .then(supplements => {
+        res.json(supplements)
       })
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
