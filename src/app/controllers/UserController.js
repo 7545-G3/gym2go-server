@@ -31,7 +31,7 @@ class UserController {
         }
         return res.json(user)
       })
-      .catch(UserNotFoundException, () => {
+      .catch(UserNotFoundException => {
         res.status(HttpStatus.BAD_REQUEST).json({msg: 'Invalid username or password'})
       })
       .catch(err => {
@@ -72,7 +72,7 @@ class UserController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
-      .catch(UserNotFoundException, err => {
+      .catch(UserNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundUser(req.params.id))
       })
       .catch(err => {
@@ -100,7 +100,7 @@ class UserController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
-      .catch(UserNotFoundException, err => {
+      .catch(UserNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundUser(req.params.id))
       })
       .catch(err => {

@@ -34,7 +34,7 @@ class GymController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
-      .catch(GymNotFoundException, err => {
+      .catch(GymNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundGym(req.params.id))
       })
       .catch(err => {
@@ -59,7 +59,7 @@ class GymController {
       .then(() => {
         return res.json(HttpStatus.OK)
       })
-      .catch(GymNotFoundException, err => {
+      .catch(GymNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundGym(req.params.id))
       })
       .catch(ValidationError, err => {
@@ -90,7 +90,7 @@ class GymController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
-      .catch(GymNotFoundException, err => {
+      .catch(GymNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundGym(req.params.id))
       })
       .catch(err => {
@@ -118,7 +118,7 @@ class GymController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
-      .catch(GymNotFoundException, err => {
+      .catch(GymNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundGym(req.params.id))
       })
       .catch(err => {
@@ -141,7 +141,7 @@ class GymController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
-      .catch(GymNotFoundException, err => {
+      .catch(GymNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundGym(req.params.id))
       })
       .catch(err => {
@@ -164,7 +164,7 @@ class GymController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
-      .catch(GymNotFoundException, err => {
+      .catch(GymNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundGym(req.params.id))
       })
       .catch(err => {
@@ -187,7 +187,7 @@ class GymController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
-      .catch(GymNotFoundException, err => {
+      .catch(GymNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundGym(req.params.id))
       })
       .catch(err => {
@@ -207,7 +207,7 @@ class GymController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
-      .catch(GymNotFoundException, err => {
+      .catch(GymNotFoundException => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorForNotFoundGym(req.params.id))
       })
       .catch(err => {

@@ -3,7 +3,7 @@ import Gym from '../models/Gym'
 import GymPass from '../models/GymPass'
 import SupplementPurchase from '../models/SupplementPurchase'
 let ValidationError = require('mongoose').Error.ValidationError
-import { UserNotFoundException, UserInvalidCredentialsException } from '../utils/error/Exceptions'
+import UserNotFoundException from '../utils/error/Exceptions'
 let ErrorHelper = require('../utils/error/ErrorHelper')
 let HttpStatus = require('http-status-codes')
 
@@ -26,9 +26,12 @@ class AdminUserController {
     const { email, password } = req.body
     AdminUser.findOne({ email, password })
       .then(user => {
+        if (!user) {
+          throw new UserNotFoundException()
+        }
         return res.json(user)
       })
-      .catch(UserNotFoundException, UserInvalidCredentialsException, () => {
+      .catch(UserNotFoundException => {
         res.status(HttpStatus.BAD_REQUEST).json({msg: 'Invalid username or password'})
       })
       .catch(err => {
