@@ -69,7 +69,7 @@ class AdminUserController {
   static getGymPassesPurchased(req, res) {
     return Gym.find({ownerUser: req.params.id}, '_id')
       .then(gymIds => {
-        return GymPass.find({gym: {$in :gymIds}}).populate('trainer clothes')
+        return GymPass.find({gym: {$in :gymIds}}).populate('trainer clothes activity gym')
       })
       .then(gyms => {
         res.json(gyms)
@@ -85,7 +85,7 @@ class AdminUserController {
   static getSupplementsPurchased(req, res) {
     return Gym.find({ownerUser: req.params.id}, '_id')
       .then(gymIds => {
-        return SupplementPurchase.find({gym: {$in :gymIds}}).populate('supplement')
+        return SupplementPurchase.find({gym: {$in :gymIds}}).populate('supplement gym')
       })
       .then(supplements => {
         res.json(supplements)
