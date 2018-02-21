@@ -4,6 +4,7 @@ const { Schema } = mongoose
 
 const schema = Schema({
   email: { type: String },
+  name: { type: String },
   age: { type: Number },
   specialty: { type: String },
   image: { type: String },
