@@ -31,41 +31,23 @@ class ErrorHelper {
     return ErrorResponse.getErrorResponseFromDBValidation(errors)
   }
 
-  static getErrorForNotFoundDriver(driverId) {
+  static getErrorForNotFoundGym(gymId) {
     return {
       code: ErrorCodes.INVALID_PARAMS,
-      errors: [{id: `Driver does not exist for id: ${driverId}`}]
+      errors: [{gymId: `Gym does not exist for id: ${gymId}`}]
     }
   }
 
-  static getErrorForNotFoundNotification(notificationId) {
+  static getErrorForNotFoundUser(userId) {
     return {
       code: ErrorCodes.INVALID_PARAMS,
-      errors: [{id: `Notification does not exist for id: ${notificationId}`}]
-    }
-  }
-
-  static getErrorForNotFoundState(stateId) {
-    return {
-      code: ErrorCodes.INVALID_PARAMS,
-      errors: [{state_id: `State does not exist for id: ${stateId}`}]
-    }
-  }
-
-  static getErrorForStateInUse(stateId) {
-    return {
-      code: ErrorCodes.INVALID_PARAMS,
-      errors: [{state_id: `State already in use for id: ${stateId}`}]
+      errors: [{userId: `User does not exist for id: ${userId}`}]
     }
   }
 
   static internalServerError(res, err) {
     Logger.error(err)
     return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json(ErrorHelper._serverErrorToJson(err))
-  }
-
-  static getErrorForInvalidPasswordResetCode() {
-    return {errors: [{code: 'Invalid code'}], code: ErrorCodes.INVALID_PARAMS}
   }
 
   static _serverErrorToJson(err) {

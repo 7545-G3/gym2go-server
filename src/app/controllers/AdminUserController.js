@@ -17,13 +17,15 @@ class AdminUserController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
+      .catch(err => {
+        return ErrorHelper.internalServerError(res, err)
+      })
   }
 
   static login(req, res) {
     const { email, password } = req.body
     AdminUser.findOne({ email, password })
       .then(user => {
-        console.log(user)
         return res.json(user)
       })
       .catch(UserNotFoundException, UserInvalidCredentialsException, () => {
@@ -42,6 +44,9 @@ class AdminUserController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
+      .catch(err => {
+        return ErrorHelper.internalServerError(res, err)
+      })
   }
 
   static getGym(req, res) {
@@ -52,6 +57,9 @@ class AdminUserController {
       })
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+      .catch(err => {
+        return ErrorHelper.internalServerError(res, err)
       })
   }
 
@@ -66,6 +74,9 @@ class AdminUserController {
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
       })
+      .catch(err => {
+        return ErrorHelper.internalServerError(res, err)
+      })
   }
 
   static getSupplementsPurchased(req, res) {
@@ -78,6 +89,9 @@ class AdminUserController {
       })
       .catch(ValidationError, err => {
         return res.status(HttpStatus.BAD_REQUEST).json(ErrorHelper.getErrorResponseFromDBValidation(err.errors))
+      })
+      .catch(err => {
+        return ErrorHelper.internalServerError(res, err)
       })
   }
 }
